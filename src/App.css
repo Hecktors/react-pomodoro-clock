@@ -114,9 +114,11 @@
 }
 
 .timer-time-left {
+	font-family: 'Roboto Mono', monospace;
 	text-align: center;
 	font-size: 4rem;
-}
+	letter-spacing: -5px;
+  }
 
 .timer-btn {
 	position: relative;

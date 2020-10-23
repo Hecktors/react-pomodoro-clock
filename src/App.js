@@ -10,20 +10,20 @@ const audioUrl = 'https://freesound.org/data/previews/66/66951_634166-lq.mp3';
 
 function App() {
 	// Hooks
-	const [ status, setStatus ] = useState('default');
-	const [ pomodoroTimer, setPomodoroTimer ] = useState();
-	const [ sessionTime, setSessionTime ] = useState(initialState.sessionTime);
-	const [ breakTime, setBreakTime ] = useState(initialState.breakTime);
-	const [ timeLeft, setTimeLeft ] = useState(sessionTime * 60);
-	const [ showSettings, setShowSettings ] = useState(initialState.showSettings);
-	const [ minuteScaleWidth, setWidth ] = useState(0);
+	const [status, setStatus] = useState('default');
+	const [pomodoroTimer, setPomodoroTimer] = useState();
+	const [sessionTime, setSessionTime] = useState(initialState.sessionTime);
+	const [breakTime, setBreakTime] = useState(initialState.breakTime);
+	const [timeLeft, setTimeLeft] = useState(sessionTime * 60);
+	const [showSettings, setShowSettings] = useState(initialState.showSettings);
+	const [minuteScaleWidth, setWidth] = useState(0);
 
 	// References
 	const container = useRef(null);
 	const sound = useRef(null);
 
 	// Constants
-	const units = [ 50, 55, 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 0, 5, 10 ];
+	const units = [50, 55, 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 0, 5, 10];
 	const scaleStyle = { transform: `translateX(${-(minuteScaleWidth / 60 * Math.floor(timeLeft))}px)` };
 	const formatedTime = ('0' + Math.floor(timeLeft / 60)).slice(-2) + ':' + ('0' + timeLeft % 60).slice(-2);
 	const isRunning = status === 'session' || status === 'break';
@@ -46,10 +46,10 @@ function App() {
 			// container.current.offsetWidth === 400 ? setWidth(398 / 20) : setWidth(container.current.offsetWidth / 20);
 			setWidth(container.current.offsetWidth / 20);
 		},
-		[ container ]
+		[container]
 	);
 
-	useEffect(() => setTimeLeft(sessionTime * 60), [ sessionTime ]);
+	useEffect(() => setTimeLeft(sessionTime * 60), [sessionTime]);
 
 	useEffect(
 		() => {
@@ -63,11 +63,11 @@ function App() {
 						setTimeLeft((timeLeft) => {
 							return timeLeft - 1;
 						});
-					}, 100)
+					}, 1000)
 				);
 			}
 		},
-		[ isRunning, pomodoroTimer ]
+		[isRunning, pomodoroTimer]
 	);
 
 	useEffect(
@@ -78,7 +78,7 @@ function App() {
 				setTimeLeft(status === 'session' ? breakTime * 60 : sessionTime * 60);
 			}
 		},
-		[ timeLeft, isRunning, pomodoroTimer, sessionTime, breakTime, status ]
+		[timeLeft, isRunning, pomodoroTimer, sessionTime, breakTime, status]
 	);
 
 	// Functions
